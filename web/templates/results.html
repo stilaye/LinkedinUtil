@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %} — Results{% endblock %}
+{% block content %}
+<h1>Results</h1>
+
+<div class="stats-bar">
+  <div class="stat"><span>{{ stats.total_leads }}</span> Total Leads</div>
+  <div class="stat"><span>{{ stats.leads_with_email }}</span> With Email</div>
+  <div class="stat"><span>{{ stats.total_runs }}</span> Runs</div>
+  {% if stats.last_run %}
+  <div class="stat small">Last run: {{ stats.last_run.completed_at[:16] | replace('T',' ') }}</div>
+  {% endif %}
+</div>
+
+<div class="downloads">
+  <a class="btn" href="/download/leads.csv">⬇ leads.csv</a>
+  <a class="btn" href="/download/posts.csv">⬇ posts.csv</a>
+  <a class="btn" href="/download/outreach_drafts.csv">⬇ outreach_drafts.csv</a>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Title</th>
+      <th>Email</th>
+      <th>LinkedIn</th>
+      <th>Post</th>
+      <th>Found</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for lead in leads %}
+    <tr>
+      <td>{{ lead.author_name }}</td>
+      <td>{{ lead.author_title }}</td>
+      <td>{{ lead.email }}</td>
+      <td>{% if lead.linkedin_profile_url %}<a href="{{ lead.linkedin_profile_url }}" target="_blank">Profile</a>{% endif %}</td>
+      <td>{% if lead.post_url %}<a href="{{ lead.post_url }}" target="_blank">Post</a>{% endif %}</td>
+      <td>{{ lead.date_found[:10] if lead.date_found else '' }}</td>
+    </tr>
+    {% else %}
+    <tr><td colspan="6" class="empty">No leads yet. Run a search to get started.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

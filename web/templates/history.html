@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %} — History{% endblock %}
+{% block content %}
+<h1>Run History</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Run ID</th>
+      <th>Started</th>
+      <th>Completed</th>
+      <th>Searches</th>
+      <th>Posts Scanned</th>
+      <th>New Leads</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for run in runs | reverse %}
+    <tr class="status-{{ run.status }}">
+      <td><code>{{ run.run_id }}</code></td>
+      <td>{{ run.started_at[:16] | replace('T',' ') }}</td>
+      <td>{{ run.completed_at[:16] | replace('T',' ') if run.completed_at else '—' }}</td>
+      <td>{{ run.searches_run }}</td>
+      <td>{{ run.posts_scanned }}</td>
+      <td>{{ run.leads_found }}</td>
+      <td><span class="badge {{ run.status }}">{{ run.status }}</span></td>
+    </tr>
+    {% else %}
+    <tr><td colspan="7" class="empty">No runs yet.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %} — Run{% endblock %}
+{% block content %}
+<h1>Run Scraper</h1>
+
+<button id="startBtn" class="btn primary" onclick="startRun()">▶ Start Run</button>
+<button class="btn" onclick="clearLog()">Clear Log</button>
+
+<div id="status" class="status-idle">Idle</div>
+<pre id="log"></pre>
+
+<script src="{{ url_for('static', filename='run.js') }}"></script>
+{% endblock %}

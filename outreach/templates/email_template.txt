@@ -1,0 +1,15 @@
+Subject: Staff SDET @ Amazon — open to {{ role_target }} roles
+
+Hi {{ author_name.split()[0] if author_name else 'there' }},
+
+{{ post_snippet }}
+
+I'm Swapnil — Staff SDET at Amazon with 10+ years across Amazon, F5 Networks, and EdgeQ.
+I specialize in Python test automation (Pytest, Playwright, Robot FW), CI/CD pipelines,
+and AI/agentic frameworks using MCP. I hold 10+ US patents and am actively exploring
+{{ role_target }} opportunities (remote preferred, Bay Area open).
+
+Would love to connect if there's a fit or referral opportunity.
+
+Swapnil Tilaye
+linkedin.com/in/swapniltilaye | swapniltilaye@gmail.com | 970-389-4011

@@ -1,0 +1,22 @@
+{
+  "queries": [
+    "hiring Staff SDET remote Python",
+    "hiring Staff QA Engineer Bay Area",
+    "hiring Senior SDET Pytest Playwright",
+    "Staff Test Automation Engineer Python remote",
+    "Principal QA Engineer hiring",
+    "hiring SDET AI automation engineer",
+    "opentowork SDET Staff hiring manager",
+    "hiring QA engineer Python pytest remote 2026",
+    "Staff engineer test automation Kubernetes hiring",
+    "hiring automation engineer AI agent MCP",
+    "Senior SDET IoT embedded systems hiring",
+    "Principal SDET platform automation hiring"
+  ],
+  "location": "San Francisco Bay Area",
+  "date_filter": "past-week",
+  "geo_urns": ["103644278"],
+  "max_posts_per_run": 150,
+  "schedule": "0 8 * * 1,3,5",
+  "use_ai_outreach": false
+}

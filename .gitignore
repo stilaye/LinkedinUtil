@@ -1,0 +1,29 @@
+# Credentials — never commit
+.env
+session.json
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+venv/
+.venv/
+env/
+*.egg-info/
+dist/
+build/
+
+# Output data — personal, not for repo
+data/output/
+debug_dom.html
+debug_links.txt
+debug_screenshot.png
+
+# macOS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/

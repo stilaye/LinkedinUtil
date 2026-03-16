@@ -1,0 +1,9 @@
+playwright>=1.40
+playwright-stealth>=1.0
+flask>=3.0
+apscheduler>=3.10
+pandas>=2.1
+jinja2>=3.1
+python-dotenv>=1.0
+anthropic>=0.23
+browser-cookie3>=0.19

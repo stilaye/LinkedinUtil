@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %} — Config{% endblock %}
+{% block content %}
+<h1>Configuration</h1>
+
+<form method="POST" action="/config">
+  <label>
+    Search Queries <small>(one per line)</small>
+    <textarea name="queries" rows="6">{{ config.queries | join('\n') }}</textarea>
+  </label>
+
+  <label>
+    Max Posts Per Run
+    <input type="number" name="max_posts_per_run" value="{{ config.max_posts_per_run }}" min="10" max="500">
+  </label>
+
+  <label>
+    Schedule (cron expression)
+    <input type="text" name="schedule" value="{{ config.schedule }}" placeholder="0 8 * * 1">
+    <small>Example: <code>0 8 * * 1</code> = every Monday 8am. Leave blank to disable.</small>
+  </label>
+
+  <label class="checkbox">
+    <input type="checkbox" name="use_ai_outreach" {% if config.use_ai_outreach %}checked{% endif %}>
+    Use AI (Claude) for outreach drafts
+    <small>(requires ANTHROPIC_API_KEY in .env)</small>
+  </label>
+
+  <button type="submit" class="btn primary">Save</button>
+</form>
+{% endblock %}
