@@ -6,7 +6,22 @@
 <form method="POST" action="/config">
   <label>
     Search Queries <small>(one per line)</small>
-    <textarea name="queries" rows="6">{{ config.queries | join('\n') }}</textarea>
+    <textarea name="queries" rows="8">{{ config.queries | join('\n') }}</textarea>
+  </label>
+
+  <label>
+    Location <small>(e.g. San Francisco Bay Area, United States)</small>
+    <input type="text" name="location" value="{{ config.location or '' }}" placeholder="United States">
+  </label>
+
+  <label>
+    Date Filter
+    <select name="date_filter">
+      <option value=""          {% if not config.date_filter           %}selected{% endif %}>Any time</option>
+      <option value="past-24h"  {% if config.date_filter == 'past-24h' %}selected{% endif %}>Past 24 hours</option>
+      <option value="past-week" {% if config.date_filter == 'past-week'%}selected{% endif %}>Past week</option>
+      <option value="past-month"{% if config.date_filter == 'past-month'%}selected{% endif %}>Past month</option>
+    </select>
   </label>
 
   <label>
@@ -15,9 +30,9 @@
   </label>
 
   <label>
-    Schedule (cron expression)
-    <input type="text" name="schedule" value="{{ config.schedule }}" placeholder="0 8 * * 1">
-    <small>Example: <code>0 8 * * 1</code> = every Monday 8am. Leave blank to disable.</small>
+    Schedule <small>(cron — leave blank for manual-only)</small>
+    <input type="text" name="schedule" value="{{ config.schedule }}" placeholder="0 8 * * 1,3,5">
+    <small>Example: <code>0 8 * * 1,3,5</code> = Mon / Wed / Fri at 8 am</small>
   </label>
 
   <label class="checkbox">
@@ -26,6 +41,6 @@
     <small>(requires ANTHROPIC_API_KEY in .env)</small>
   </label>
 
-  <button type="submit" class="btn primary">Save</button>
+  <button type="submit" class="btn primary">💾 Save</button>
 </form>
 {% endblock %}

@@ -9,7 +9,7 @@ import asyncio
 import csv
 import sys
 import textwrap
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -76,7 +76,26 @@ async def main():
 
     print(f"[quick_test] Done — {len(cards)} posts found, {found_emails} with email")
 
-    # ── Save to CSV ──────────────────────────────────────────────────────────
+    # ── Enrich cards with extracted emails ───────────────────────────────────
+    for c in cards:
+        c["emails"] = extract_emails(c.get("post_text", ""))
+
+    # ── Save to main storage (leads.csv + runs_log.csv) — shown in Flask ─────
+    from data import storage
+    run_id = storage.new_run_id()
+    started_at = datetime.utcnow().isoformat()
+    new_leads = storage.append_leads_from_cards(cards, run_id)
+    storage.log_run(
+        run_id=run_id,
+        started_at=started_at,
+        searches_run=1,
+        posts_scanned=len(cards),
+        leads_found=new_leads,
+        status="success",
+    )
+    print(f"[quick_test] Saved {new_leads} new leads → data/output/leads.csv")
+
+    # ── Also save a timestamped snapshot ─────────────────────────────────────
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     csv_path = OUTPUT_DIR / f"leads_{timestamp}.csv"
     fieldnames = ["name", "role", "company", "linkedin_profile_url", "post_url", "email", "post_snippet"]
@@ -84,7 +103,6 @@ async def main():
         writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()
         for c in cards:
-            emails = extract_emails(c.get("post_text", ""))
             headline = c.get("author_title") or ""
             role, company = _split_headline(headline)
             writer.writerow({
@@ -93,10 +111,10 @@ async def main():
                 "company":             company,
                 "linkedin_profile_url": c.get("author_href") or "",
                 "post_url":            c.get("post_url") or "",
-                "email":               ", ".join(emails),
+                "email":               ", ".join(c.get("emails") or []),
                 "post_snippet":        textwrap.shorten(c.get("post_text") or "", width=300, placeholder="…"),
             })
-    print(f"[quick_test] Saved → {csv_path}")
+    print(f"[quick_test] Snapshot  → {csv_path}")
 
 
 asyncio.run(main())

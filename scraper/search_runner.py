@@ -130,11 +130,12 @@ async def _extract_cards(page: Page) -> list[dict]:
                         ? (nameEl.textContent || '').replace(/\\s+/g, ' ').trim()
                         : '';
 
-                    // Strip LinkedIn badge noise
+                    // Strip LinkedIn badge noise: degrees (1st, 2nd, 3rd+), buttons, emojis trail
                     authorName = raw
                         .replace(/Verified Profile\\s*/gi, '')
                         .replace(/Premium Profile\\s*/gi, '')
-                        .replace(/\\b(1st|2nd|3rd|Follow(?:ing)?|Connect|\\+\\s*Follow|Hiring)\\b/gi, '')
+                        .replace(/\\b(1st\\+?|2nd\\+?|3rd\\+?|Follow(?:ing)?|Connect|\\+\\s*Follow|Hiring)\\b/gi, '')
+                        .replace(/\\s*\\+\\s*$/, '')   // trailing " +" from 3rd+ degree
                         .replace(/\\s+/g, ' ')
                         .trim();
                 }

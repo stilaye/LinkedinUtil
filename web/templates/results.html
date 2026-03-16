@@ -22,10 +22,11 @@
   <thead>
     <tr>
       <th>Name</th>
+      <th>Company</th>
       <th>Title</th>
       <th>Email</th>
       <th>LinkedIn</th>
-      <th>Post</th>
+      <th>Posts</th>
       <th>Found</th>
     </tr>
   </thead>
@@ -33,14 +34,15 @@
     {% for lead in leads %}
     <tr>
       <td>{{ lead.author_name }}</td>
-      <td>{{ lead.author_title }}</td>
+      <td>{{ lead.company }}</td>
+      <td style="max-width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="{{ lead.author_title }}">{{ lead.author_title }}</td>
       <td>{{ lead.email }}</td>
-      <td>{% if lead.linkedin_profile_url %}<a href="{{ lead.linkedin_profile_url }}" target="_blank">Profile</a>{% endif %}</td>
-      <td>{% if lead.post_url %}<a href="{{ lead.post_url }}" target="_blank">Post</a>{% endif %}</td>
+      <td>{% if lead.linkedin_profile_url %}<a href="{{ lead.linkedin_profile_url }}" target="_blank">Profile ↗</a>{% endif %}</td>
+      <td>{% if lead.posts_page %}<a href="{{ lead.posts_page }}" target="_blank">Posts ↗</a>{% endif %}</td>
       <td>{{ lead.date_found[:10] if lead.date_found else '' }}</td>
     </tr>
     {% else %}
-    <tr><td colspan="6" class="empty">No leads yet. Run a search to get started.</td></tr>
+    <tr><td colspan="7" class="empty">No leads yet. Run a search to get started.</td></tr>
     {% endfor %}
   </tbody>
 </table>

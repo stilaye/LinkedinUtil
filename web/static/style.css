@@ -98,3 +98,13 @@ code { background: #f0f0f0; padding: 2px 6px; border-radius: 4px; font-size: 12p
 .badge.success { background: #e6f4ea; color: #2d7d46; }
 .badge.failed  { background: #fdecea; color: #b71c1c; }
 .badge.partial { background: #fff8e1; color: #f57f17; }
+
+/* History row tinting */
+tr.status-success td { background: #f6fef9; }
+tr.status-failed  td { background: #fff5f5; }
+
+/* Select input */
+select {
+  padding: 8px 12px; border: 1px solid #ccc; border-radius: 6px;
+  font-size: 14px; font-family: inherit; width: 100%; background: #fff;
+}
